@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>gift</title>
+<!-- style -->
+<link type="text/css" rel="stylesheet" href="css/theme.css">
+<script src="js/jquery-2.0.3.min.js"></script>
+<!-- Favicons -->
+<link href="images/爱心.png" rel="icon">
+</head>
+<body>
+
+<div id="div_container">
+	<!-- 最外层div，用于居中兼容PC和移动 -->
+
+
+	<div id="div_start_bg"></div>
+	<div id="div_onlyyou">
+		<!-- 用于设置背景 -->
+		<div id="div_oy_inner">
+			<!-- 用于存放content -->
+			<div class="div_oy_text">
+				<h1></h1>
+				<img class="img_oy_text" src="">
+				<p class="p_oy_text"></p>
+				<ul id="ul_oy_benefit">
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+				</ul>
+			</div>
+			<ul id="ul_oy_btn">
+				<li onclick="oy_go_next()">Yes&nbsp;&nbsp;❤</li>
+				<li onclick="oy_show_benefit()">No&nbsp;&nbsp;✖</li>
+			</ul>
+
+			<div id="div_oy_note">
+				<img src="images/emoji_kelian.jpg" alt=""><br>好吧明白了！
+				<div id="div_oy_note_close">✖</div>
+			</div>
+			<div id="div_oy_yes">
+				<img src="images/emoji_bixin.jpg" alt=""><br>太好了！哈哈~
+			</div>
+		</div>
+	</div>
+	<div class="div_pure_words">
+		<div class="div_pure_words_bg">
+			<div class="div_pure_words_height"></div>
+		</div>
+		<div class="div_pw_typed">
+			<span id="span_pw_typed"></span>
+		</div>
+	</div>
+
+	<div id="div_btn_container">
+		<div id="div_btn_inner">
+			<div class="div_music_tips"></div>
+			<div class="div_btn" id="div_music" onclick="music_switch()">
+				<!-- 音乐按钮部分 -->
+				<img id="img_music" src="images/music_note_big.png" style="-webkit-animation:music_play_rotate 1s linear infinite">
+				<!-- 您的浏览器不支持播放音乐 -->
+				<audio id="audio_music" autoplay="autoplay" loop="loop"><source type="audio/mpeg"/></audio>
+			</div>
+			<div class="div_record_tips"></div>
+			<div class="div_btn" id="div_record" onclick="record_switch()">
+				<audio id="audio_record" loop="loop"><source type="audio/mpeg"/></audio>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	audio_music.play();
+//判断客户端设备，选择写入meta
+function init_viewport() {
+	if (navigator.userAgent.indexOf('Android') != -1) {
+		var version = parseFloat(RegExp.$1);
+		if (version > 2.3) {
+			var width = window.outerWidth == 0 ? window.screen.width : window.outerWidth;
+			var phoneScale = parseInt(width) / 500;
+			document.write('<meta name="viewport" content="width=500, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+		} else {
+			document.write('<meta name="viewport" content="width=500, target-densitydpi=device-dpi, user-scalable=0">');
+		}
+	} else if (navigator.userAgent.indexOf('iPhone') != -1) {
+		var phoneScale = parseInt(window.screen.width) / 500;
+		document.write('<meta name="viewport" content="width=500, min-height=750, initial-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', user-scalable=0" /> '); //0.75   0.82
+	} else {
+		document.write('<meta name="viewport" content="width=500, height=750, initial-scale=0.64" /> '); //0.75  0.82
+	}
+}
+init_viewport();
+var choose;
+var theme = 'pure_words';
+console.log('theme ->' + theme);
+var theme_content = {
+	"pure_words_content": "你是一个很好的女孩，你让我觉得我不配，外貌我们无法决定，我明白，但我还是在意，不好意思，我做不到那样。我有些接受不了。我曾想过去接受，在和你视频的时候夸你可爱，不只是对你说，也是对我说。有时候我觉得自己是个小人，反派的那种哦，只不过这个反派它很努力，这个反派喜欢美女，这个反派喜欢权力，这个反派向往古代，向往一手遮天，醉卧美人膝的生活，有时候我也是为了这个目标而努力着，你可能觉得很幼稚吧，但有时候这却是我努力的源泉，不好意思，让你见笑了，我就是这么一个贪婪的人。是我配不上你，所以说不要太伤心，是我不配，你应该高兴，你摆脱了一个小人。我想过去接受，但是我发现我做不到，也许我们无分吧，你的温柔，你的性格我都很喜欢，包括在一起的时光。\n" +
+			"  昨天我哭了，我没想到，当时的我自认为很理性的说出那样的话，我以为我扛的住。但是就那么一瞬间突然就失去你了，我脑海中都是你，都是我们的过去。以前你问我，如果分手了，我会怎么做，我说我会疯狂的打游戏，昨天晚上我一直在打游戏，打单四，不求别的，只求一死，我喜欢打雨林，但是我越打越伤心。每一个地方，仿佛我们都走过，基地，你烧死过我，你还被轰炸区炸过，天堂边上的房区，我们不在圈，你被毒死。克豪镇那边的仓库，我和你跳了一次又一次。我发现我总是找不到倍镜，但是我把你搞丢了。你说我对你的喜欢可能只是欣赏，我想了想我觉得不对，因为喜欢源于欣赏，没有欣赏，哪来的喜欢，我觉得我喜欢的你是不全面的你，你说我把你想的太好了，但是不全面的你真的很好，好到让我忍不住自己的心。但是你突然全面起来，对于我这个贪图享乐好色的人来说，我做不到爱你，我只能喜欢部分的你，我尝试过包容，但对于我这样的小人来说实在太难，我觉得我们走不到最后。\n" +
+			"  昨天你发的说说我看了，我这颗星星不能再陪伴你了，当时我哭了，ahhhhh，我写的时候又哭了，你好绝情，像我一样，就此别过，就像扎了我一刀一样。哈哈哈哈哈，我现在好想你，好想你，我好想和你打电话，我好想再听一听你的声音，我好想再不要脸的叫你一声老婆。你说你依旧相信爱情，我很高兴，真的，可是你不再相信我了。我真的好想和你做个朋友啊，那怕只是让我知道，你过的很好，这就够了。\n" +
+			"  你是一个天使，我觉得，虽然这个天使不太好看，但这是我不配，我很肤浅，从来没有遇到过你这样的女孩子，体贴，温柔，善良，尊重，纯净，我希望你不要因为外貌感到自卑，你的心灵足够震撼每一个人，我正是被你的心灵所诱惑，只不过你诱惑到一个小人，真的抱歉，你值得拥有更好的人生，你值得拥有一个更美好的未来，你终会遇到一个比我优秀会爱你会包容你的伴侣。不知道你有没有下定决心去外省工作，以前我说我会在背后支持你，但是我现在不配了，但是相信你哥哥，相信你的朋友，他们会支持你的（那怕不再有我），以前我说的话希望你能记得，如果想出去，早点做准备吧，相信你，相信自己。\n" + "。<um style='color: #f44336;'>💕</um>",
+	"typed_bool": "typed_y",
+	"cursor_char": "cursor_heart",
+	"bg_style_pure_words": "bg_opacity",
+	"bg_img": "images/3.jpg",
+	"simple_page_content": "",
+	"video_page_content": ""
+};
+console.log(theme_content);
+
+var music_json = {
+	"music_select": "m_online",
+	"m_online_id": "7",
+	"m_online_url": "images/1.mp3",
+	"m_upload_name": "null",
+	"m_upload_url": "null"
+};
+console.log(music_json);
+var record_json = {
+	"record_bool": "r_false",
+	"r_wechat_time": "null",
+	"r_wechat_url": "null",
+	"r_wechat_amr": "null"
+};
+console.log(record_json);
+
+
+var main_title = '我喜欢你❤️';
+// console.log(main_title);
+if (main_title == '' || main_title == 'null') { //允许标题为空
+	document.title = '慢慢喜欢你';
+}
+
+var window_height = $(window).height();
+console.log('window_height ->' + window_height);
+var pure_words_content = theme_content['pure_words_content'];
+var str_cursorChar;
+var typed_bool;
+var interval_pw_height;
+var height_div_pw = $(".div_pure_words_height").height();
+
+
+//接受
+
+var theme_content_yes = {
+	"pure_words_content_yes_yes": "你真的会点YES吗，小婷，真的会吗，我不知道哎，我现在心里很乱，想和你做朋友，我好想你，好想你，我忘不了过去。又不知道怎么面对你。\n" +
+			"  小婷，我是喜欢你的，对于你选择原谅我并没有做很多准备，反而你选择NO，我写了很多很多，我写的哭了，我真的控制不住自己，我好想你，也许你说得对，喜欢不存在耽误，但是我做错了，我不知道能不能回头，你还能不能原谅我。\n" +
+			"  大概不会了吧，我为什呢要设计yes呢，哈哈哈，给自己一个希望吧。祝你幸福。\n" +
+			"  这里把我一开始的表白放在这里，我真的喜欢过你，不是欣赏！我扒记录扒了半天，你这真的好绝情啊，好吧，我没有找到.hhhhhhhh。嗯。也许相见不如不见吧，我喜欢过你，我不后悔，只是觉得昨天的我欠考虑了。问题是我提出来的，我认了。我好想你，好想你，我会挺过去的。其实拒绝那边才是我想了好久的话。\n" +
+			"  小婷同学，祝你有一个美好的未来，愿你有一个灿烂的前程，祝你遇到一个更好的人，祝你在这尘世间获得幸福。\n" +
+			"  往后余生，小周不能陪你走了，抱歉，一定要照顾好自己。\n"+
+			"遇到你是我的荣幸，不知道是不是你的不幸。祝你好好吃饭，好好睡觉，好好休息，好好生活，愿你往后风平，柳暗花明，三分惊喜，七分尽兴<um style='color: #f44336;'>💕</um>",
+	"typed_bool": "typed_y",
+	"cursor_char": "cursor_heart",
+	"bg_style_pure_words": "bg_opacity",
+	"bg_img": "images/3.jpg",
+	"simple_page_content": "",
+	"video_page_content": ""
+};
+
+console.log('window_height ->' + window_height);
+var pure_words_content_yes_yes = theme_content_yes['pure_words_content_yes_yes'];
+
+
+
+function init_pure_words() {
+	$(".div_pure_words_height").html(pure_words_content + '22222'); //初始化复制内容，撑开文档高度            
+	// 初始化设置div的bg图片 初始化设置div的bg图片
+	if (typeof(theme_content['bg_style_pure_words']) != 'undefined' && theme_content['bg_style_pure_words'] == 'bg_opacity') {
+		if (typeof(theme_content['bg_img']) != 'undefined' && theme_content['bg_img'] != '') {
+			$(".div_pure_words_bg").css({
+				"background-image": "url(" + theme_content['bg_img'] + ")"
+			});
+		}
+	}
+	//以下是打字效果的js 
+	if (typeof(theme_content['cursor_char']) != 'undefined' && theme_content['cursor_char'] != '') {
+		switch (theme_content['cursor_char']) { //设置打字光标的样式
+		case 'cursor_heart':
+			str_cursorChar = '<um style="color: #F44336;">❤</um>';
+			break;
+		case 'cursor_sub':
+			str_cursorChar = '_';
+			break;
+		case 'cursor_music':
+			str_cursorChar = '♫';
+			break;
+		case 'cursor_star':
+			str_cursorChar = '★';
+			break;
+		case 'cursor_sun':
+			str_cursorChar = '☀';
+			break;
+		default:
+			str_cursorChar = '|';
+		}
+	} else { //处理全新作品，默认显示打字效果
+		str_cursorChar = '❤';
+	}
+	//判断用户有没有选择打字效果
+	if (typeof(theme_content['typed_bool']) != 'undefined' && theme_content['typed_bool'] != '') {
+		typed_bool = theme_content['typed_bool'] == 'typed_y' ? true : false;
+	} else {
+		typed_bool = false; //默认显示打字效果
+	}
+	display_pure_words();
+	$(".div_pure_words").fadeIn();
+	interval_pw_height = setInterval(function() {
+		console.log('div_pure_words_height -> ' + $('.div_pure_words_height').height());
+		var least_height_div_pw = $('.div_pure_words_height').height();
+		if (least_height_div_pw > height_div_pw) {
+			height_div_pw = least_height_div_pw;
+		} else {
+			clearInterval(interval_pw_height);
+			$(".div_pure_words_height").height(least_height_div_pw + 100);
+			if ($(".div_pure_words_height").height() < window_height) {
+				$(".div_pure_words_height").height(window_height); //不能小于窗口的高度
+				console.log('let us be high as window');
+			}
+		}
+	}, 100);
+}
+
+function display_pure_words() {
+	if (typed_bool) {
+		var typed_pure_words = new Typed('#span_pw_typed', {
+			strings: [pure_words_content],
+			//输入内容, 支持html标签
+			typeSpeed: 160,
+			//打字速度
+			cursorChar: str_cursorChar,
+			//替换光标的样式
+			contentType: 'html',
+			//值为html时，将打印的文本标签直接解析html标签
+			onComplete: function(abc) {
+				// console.log(abc); 
+				console.log('finished typing words');
+				// console.log($('#span_pw_typed').height()-$(".div_pure_words_height").height());
+			},
+		});
+	} else {
+		//如果不需要打字效果就直接显示
+		$("#span_pw_typed").html(pure_words_content).fadeIn();
+	}
+	init_attachment();
+}
+var start_content = {
+	chase_title: "你会原谅我吗<um style='color: #F44336;'>💕</um>",
+	chase_text: "其实，我有点想你<um style='color: #F44336;'>💕</um>",
+	chase_benefit: ["我想你，我舍不得你，我好想再不要脸的叫你一声老婆", "照顾好自己",  "我现在有点后悔", "我真的喜欢过你", "你现在还好吗", "我再问最后一次"],
+	bg_style: "bg_custom",
+	bg_img: "images/2.jpg",
+	img_bool: "img_true",
+	img_src: "images/1.gif"
+}; //可能为null
+console.log(start_content);
+var start_id;
+$(function() {
+	//此事件为触发互动创意
+	start_id = 'onlyyou'; //可能为null
+	init_start(start_id);
+});
+function init_start(start_id) {
+	console.log('init_start ->' + start_id);
+	switch (start_id) {
+	case 'loveformat':
+		$('.div_loveformat').show();
+		init_loveformat();
+		break;
+	case 'hearttree':
+		$('#div_hearttree').show();
+		init_hearttree();
+		break;
+	case 'courage':
+		$('#div_courage').show();
+		init_courage();
+		break;
+	case 'birthdaycake':
+		$('#div_dbcake').show();
+		init_birthdaycake();
+		break;
+	case 'intersect':
+		$('#div_intersect').show();
+		init_intersect();
+		break;
+	case 'onlyyou':
+		$('#div_onlyyou').show();
+		init_onlyyou();
+		break;
+	default:
+		init_theme();
+	}
+}
+//开始动画主体部分
+function init_theme() {
+	console.log('init_theme');
+	$('#div_start_bg').fadeOut();
+	audio_music.play();
+	init_pure_words();
+}
+//接受
+function init_theme_yes() {
+	console.log('init_theme');
+	$('#div_start_bg').fadeOut();
+	audio_music.play();
+	init_pure_words_yes();
+}
+
+
+var attachment = 'null'; //可能为null
+var attached_content = {
+	"bool_save": false
+}; //可能为null
+console.log(attached_content);
+function init_attachment() { //开始attachment
+	console.log('init_attachment ->' + attachment);
+	switch (attachment) {
+	case 'timer':
+		init_at_timer();
+		break;
+	default:
+		return;
+	}
+}
+
+
+function init_pure_words_yes() {
+	$(".div_pure_words_height").html(pure_words_content_yes_yes + '22222'); //初始化复制内容，撑开文档高度
+	// 初始化设置div的bg图片 初始化设置div的bg图片
+	if (typeof(theme_content_yes['bg_style_pure_words']) != 'undefined' && theme_content_yes['bg_style_pure_words'] == 'bg_opacity') {
+		if (typeof(theme_content_yes['bg_img']) != 'undefined' && theme_content_yes['bg_img'] != '') {
+			$(".div_pure_words_bg").css({
+				"background-image": "url(" + theme_content_yes['bg_img'] + ")"
+			});
+		}
+	}
+	//以下是打字效果的js
+	if (typeof(theme_content_yes['cursor_char']) != 'undefined' && theme_content_yes['cursor_char'] != '') {
+		switch (theme_content_yes['cursor_char']) { //设置打字光标的样式
+		case 'cursor_heart':
+			str_cursorChar = '<um style="color: #F44336;">❤</um>';
+			break;
+		case 'cursor_sub':
+			str_cursorChar = '_';
+			break;
+		case 'cursor_music':
+			str_cursorChar = '♫';
+			break;
+		case 'cursor_star':
+			str_cursorChar = '★';
+			break;
+		case 'cursor_sun':
+			str_cursorChar = '☀';
+			break;
+		default:
+			str_cursorChar = '|';
+		}
+	} else { //处理全新作品，默认显示打字效果
+		str_cursorChar = '❤';
+	}
+	//判断用户有没有选择打字效果
+	if (typeof(theme_content_yes['typed_bool']) != 'undefined' && theme_content_yes['typed_bool'] != '') {
+		typed_bool = theme_content_yes['typed_bool'] == 'typed_y' ? true : false;
+	} else {
+		typed_bool = false; //默认显示打字效果
+	}
+	display_pure_words_yes();
+	$(".div_pure_words").fadeIn();
+	interval_pw_height = setInterval(function() {
+		console.log('div_pure_words_height -> ' + $('.div_pure_words_height').height());
+		var least_height_div_pw = $('.div_pure_words_height').height();
+		if (least_height_div_pw > height_div_pw) {
+			height_div_pw = least_height_div_pw;
+		} else {
+			clearInterval(interval_pw_height);
+			$(".div_pure_words_height").height(least_height_div_pw + 100);
+			if ($(".div_pure_words_height").height() < window_height) {
+				$(".div_pure_words_height").height(window_height); //不能小于窗口的高度
+				console.log('let us be high as window');
+			}
+		}
+	}, 100);
+}
+
+function display_pure_words_yes() {
+	if (typed_bool) {
+		var typed_pure_words = new Typed('#span_pw_typed', {
+			strings: [pure_words_content_yes_yes],
+			//输入内容, 支持html标签
+			typeSpeed: 160,
+			//打字速度
+			cursorChar: str_cursorChar,
+			//替换光标的样式
+			contentType: 'html',
+			//值为html时，将打印的文本标签直接解析html标签
+			onComplete: function(abc) {
+				// console.log(abc);
+				console.log('finished typing words');
+				// console.log($('#span_pw_typed').height()-$(".div_pure_words_height").height());
+			},
+		});
+	} else {
+		//如果不需要打字效果就直接显示
+		$("#span_pw_typed").html(pure_words_content_yes_yes).fadeIn();
+	}
+	init_attachment();
+}
+
+</script>
+<!-- JQuery -->
+<script src="js/typed.min.js"></script>
+<script src="js/start_onlyyou.js"></script>
+<script src="js/jweixin-1.2.0.js"></script>
+<script src='js/theme_common.js'></script>
+<script language='JavaScript'>$.getScript('https://s4.cnzz.com/z_stat.php?id=1278559043&web_id=1278559043')</script>
+</body>
+</html>
